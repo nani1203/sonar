@@ -1,0 +1,92 @@
+import React, { useState } from "react";
+import { Tabs, Tab } from "@mui/material";
+import {
+  Home as HomeIcon,
+  Dashboard as DashboardIcon,
+  SupervisorAccount as SupervisorAccountIcon,
+  LocationOn as LocationOnIcon,
+  ShowChart as ShowChartIcon,
+  Calculate as CalculateIcon,
+  RequestQuote as RequestQuoteIcon,
+  Apartment as ApartmentIcon,
+  CreditCard as CreditCardIcon,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+
+const IconTabs = () => {
+  const [value, setValue] = useState(0);
+  const navigate = useNavigate();
+
+  const handleChange = (
+    _event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
+    setValue(newValue);
+  };
+
+  const handleLastIconButtonClick = () => {
+    navigate("/Steper");
+  };
+
+  const iconButtons = [
+    { icon: <DashboardIcon />, index: 0 },
+    { icon: <HomeIcon />, index: 1 },
+    { icon: <SupervisorAccountIcon />, index: 2 },
+    { icon: <LocationOnIcon />, index: 3 },
+    { icon: <ShowChartIcon />, index: 4 },
+    { icon: <CalculateIcon />, index: 5 },
+    { icon: <RequestQuoteIcon />, index: 6 },
+    { icon: <ApartmentIcon />, index: 7 },
+    { icon: <CreditCardIcon />, index: 8 },
+  ];
+
+  return (
+    <Tabs
+      value={value}
+      onChange={handleChange}
+      orientation="vertical"
+      variant="scrollable"
+      scrollButtons={false}
+      indicatorColor="secondary"
+      textColor="primary"
+      style={{
+        height: "600px",
+        marginLeft: "-9px",
+        marginTop: "10%",
+      }}
+    >
+      {iconButtons.map(({ icon, index }) => (
+        <Tab
+          key={index}
+          icon={React.cloneElement(icon, {
+            style: { color: value === index ? "#2f2d46" : "" },
+          })}
+          style={{
+            backgroundColor: value === index ? "#dcdae9" : "",
+            border: value === index ? "none" : "",
+            marginLeft: "16.5px",
+            marginTop: "10px",
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            boxShadow:
+              value === index && index !== 0
+                ? "0 0 0 10px rgba(0, 0, 0, 0.0)"
+                : "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minWidth: "51px",
+          }}
+          onClick={
+            index === iconButtons.length - 2
+              ? handleLastIconButtonClick
+              : undefined
+          }
+        />
+      ))}
+    </Tabs>
+  );
+};
+
+export default IconTabs;
